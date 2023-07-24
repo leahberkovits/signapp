@@ -85,7 +85,7 @@ export default function Drop({ onLoaded }) {
         />
         <Button
           type="primary"
-          style={{ background: "#F0F0F0", color: "#303030", width: "20%" }}
+          style={{ background: "#F0F0F0", color: "#303030" }}
           icon={<FilePdfOutlined />}
           size="large"
         >
