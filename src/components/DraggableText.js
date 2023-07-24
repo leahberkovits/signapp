@@ -9,18 +9,18 @@ export default function DraggableText({ onEnd, onSet, onCancel, initialText }) {
 
   useEffect(() => {
     if (initialText) {
-      setText(initialText)
+      setText(initialText);
     } else {
       inputRef.current.focus();
-      inputRef.current.select()
+      inputRef.current.select();
     }
-  }, [])
+  }, []);
 
   const styles = {
     container: {
       position: "absolute",
       zIndex: 100000,
-      border: `2px solid ${primary45}`,
+      border: `1px solid ${primary45}`,
     },
     controls: {
       position: "absolute",
@@ -38,15 +38,15 @@ export default function DraggableText({ onEnd, onSet, onCancel, initialText }) {
       border: 0,
       fontSize: 20,
       padding: 3,
-      backgroundColor: 'rgba(0,0,0,0)',
-      cursor: 'move'
-    }
+      backgroundColor: "rgba(0,0,0,0)",
+      cursor: "move",
+    },
   };
   return (
     <Draggable onStop={onEnd}>
       <div style={styles.container}>
         <div style={styles.controls}>
-          <div style={styles.smallButton} onClick={()=>onSet(text)}>
+          <div style={styles.smallButton} onClick={() => onSet(text)}>
             <FaCheck color={goodColor} />
           </div>
           <div style={styles.smallButton} onClick={onCancel}>
@@ -57,7 +57,7 @@ export default function DraggableText({ onEnd, onSet, onCancel, initialText }) {
           ref={inputRef}
           style={styles.input}
           value={text}
-          placeholder={'Text'}
+          placeholder={"Text"}
           onChange={(e) => setText(e.target.value)}
         />
       </div>

@@ -1,5 +1,6 @@
 import { BigButton } from "./BigButton";
 import React from "react";
+import { Image, Button } from "antd";
 
 export function ConfirmOrCancel({
   onCancel,
@@ -7,7 +8,7 @@ export function ConfirmOrCancel({
   confirmTitle = "Confirm",
   leftBlock,
   hideCancel,
-  disabled
+  disabled,
 }) {
   const styles = {
     actions: {
@@ -22,15 +23,28 @@ export function ConfirmOrCancel({
   return (
     <div style={styles.actions}>
       <div>{leftBlock}</div>
-      <div>
+      <div style={{ gap: 18, display: "flex" }}>
         {!hideCancel ? (
-          <BigButton
-            title={"Cancel"}
-            style={styles.cancel}
+          <Button
+            style={{
+              border: "1px solid #F44336",
+              color: " #F44336",
+            }}
+            size="large"
             onClick={onCancel}
-          />
+          >
+            Cancel
+          </Button>
         ) : null}
-        <BigButton title={confirmTitle} inverted={true} onClick={onConfirm} disabled={disabled}/>
+
+        <Button
+          type="primary"
+          style={{ background: "#F44336", color: "white" }}
+          size="large"
+          onClick={onConfirm}
+        >
+          {confirmTitle}
+        </Button>
       </div>
     </div>
   );

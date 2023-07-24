@@ -14,13 +14,13 @@ export function AddSigDialog({ onConfirm, onClose, autoDate, setAutoDate }) {
     },
     sigBlock: {
       display: "inline-block",
-      border: `1px solid ${primary45}`,
+      border: `1px solid #F44336`,
     },
     instructions: {
       display: "flex",
       justifyContent: "space-between",
       textAlign: "center",
-      color: primary45,
+      color: "#F44336",
       marginTop: 8,
       width: 600,
       alignSelf: "center",
@@ -72,6 +72,7 @@ export function AddSigDialog({ onConfirm, onClose, autoDate, setAutoDate }) {
           />
         </div>
       }
+      style={{ background: "#F44336" }}
     />
   );
 }

@@ -11,6 +11,7 @@ import { BigButton } from "./components/BigButton";
 import DraggableSignature from "./components/DraggableSignature";
 import DraggableText from "./components/DraggableText";
 import dayjs from "dayjs";
+import { Image, Button } from "antd";
 
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -43,6 +44,11 @@ function App() {
       maxWidth: 800,
       margin: "0 auto",
       marginTop: 8,
+      display: "flex",
+      gap: 15,
+      position: "relative",
+      marginTop: "32px",
+      marginBottom: "32px",
     },
   };
   const [pdf, setPdf] = useState(null);
@@ -84,27 +90,46 @@ function App() {
           <div>
             <div style={styles.controls}>
               {!signatureURL ? (
-                <BigButton
-                  marginRight={8}
-                  title={"Add signature"}
+                <Button
+                  style={{
+                    border: "1px solid #F44336",
+                    color: " #F44336",
+                  }}
+                  size="large"
                   onClick={() => setSignatureDialogVisible(true)}
-                />
+                >
+                  Add signature{" "}
+                </Button>
               ) : null}
 
-              <BigButton
-                marginRight={8}
-                title={"Add Date"}
+              <Button
+                style={{
+                  border: "1px solid #F44336",
+                  color: " #F44336",
+                }}
+                size="large"
                 onClick={() => setTextInputVisible("date")}
-              />
+              >
+                Add Date
+              </Button>
 
-              <BigButton
-                marginRight={8}
-                title={"Add Text"}
+              <Button
+                style={{
+                  border: "1px solid #F44336",
+                  color: " #F44336",
+                }}
+                size="large"
                 onClick={() => setTextInputVisible(true)}
-              />
-              <BigButton
-                marginRight={8}
-                title={"Reset"}
+              >
+                Add Text{" "}
+              </Button>
+
+              <Button
+                style={{
+                  border: "1px solid #F44336",
+                  color: " #F44336",
+                }}
+                size="large"
                 onClick={() => {
                   setTextInputVisible(false);
                   setSignatureDialogVisible(false);
@@ -114,16 +139,28 @@ function App() {
                   setPageNum(0);
                   setPageDetails(null);
                 }}
-              />
+              >
+                Reset
+              </Button>
+
               {pdf ? (
-                <BigButton
-                  marginRight={8}
-                  inverted={true}
-                  title={"Download"}
+                <Button
+                  type="primary"
+                  style={{
+                    border: "1px solid #F44336",
+                    color: "white",
+                    background: "#F44336",
+                    alignSelf: "flex-end",
+                    position: "absolute",
+                    right: 0,
+                  }}
+                  size="large"
                   onClick={() => {
                     downloadURI(pdf, "file.pdf");
                   }}
-                />
+                >
+                  Download File
+                </Button>
               ) : null}
             </div>
             <div ref={documentRef} style={styles.documentBlock}>
@@ -138,14 +175,16 @@ function App() {
                   onEnd={setPosition}
                   onSet={async (text) => {
                     const { originalHeight, originalWidth } = pageDetails;
-                    const scale = originalWidth / documentRef.current.clientWidth;
+                    const scale =
+                      originalWidth / documentRef.current.clientWidth;
 
                     const y =
                       documentRef.current.clientHeight -
                       (position.y +
-                        (12 * scale) -
-                        position.offsetY -
+                        window.pageYOffset +
+                        12 * scale -
                         documentRef.current.offsetTop);
+
                     const x =
                       position.x -
                       166 -
@@ -162,6 +201,7 @@ function App() {
 
                     const pages = pdfDoc.getPages();
                     const firstPage = pages[pageNum];
+                    // alert(text);
 
                     firstPage.drawText(text, {
                       x: newX,
@@ -170,6 +210,7 @@ function App() {
                     });
 
                     const pdfBytes = await pdfDoc.save();
+
                     const blob = new Blob([new Uint8Array(pdfBytes)]);
 
                     const URL = await blobToURL(blob);
@@ -187,12 +228,13 @@ function App() {
                   }}
                   onSet={async () => {
                     const { originalHeight, originalWidth } = pageDetails;
-                    const scale = originalWidth / documentRef.current.clientWidth;
+                    const scale =
+                      originalWidth / documentRef.current.clientWidth;
 
                     const y =
                       documentRef.current.clientHeight -
-                      (position.y -
-                        position.offsetY +
+                      (position.y +
+                        window.pageYOffset +
                         64 -
                         documentRef.current.offsetTop);
                     const x =
@@ -213,7 +255,7 @@ function App() {
                     const firstPage = pages[pageNum];
 
                     const pngImage = await pdfDoc.embedPng(signatureURL);
-                    const pngDims = pngImage.scale( scale * .3);
+                    const pngDims = pngImage.scale(scale * 0.3);
 
                     firstPage.drawImage(pngImage, {
                       x: newX,
@@ -224,9 +266,7 @@ function App() {
 
                     if (autoDate) {
                       firstPage.drawText(
-                        `Signed ${dayjs().format(
-                          "M/d/YYYY HH:mm:ss ZZ"
-                        )}`,
+                        `Signed ${dayjs().format("M/d/YYYY HH:mm:ss ZZ")}`,
                         {
                           x: newX,
                           y: newY - 10,
