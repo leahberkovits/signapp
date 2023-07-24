@@ -35,13 +35,13 @@ function App() {
       border: "1px solid #000",
     },
     documentBlock: {
-      maxWidth: 800,
+      maxWidth: 700,
       margin: "20px auto",
       marginTop: 8,
       border: "1px solid #999",
     },
     controls: {
-      maxWidth: 800,
+      maxWidth: 700,
       margin: "0 auto",
       marginTop: 8,
       display: "flex",
@@ -295,8 +295,8 @@ function App() {
               >
                 <Page
                   pageNumber={pageNum + 1}
-                  width={800}
-                  height={1200}
+                  width={700}
+                  height={1100}
                   onLoadSuccess={(data) => {
                     setPageDetails(data);
                   }}

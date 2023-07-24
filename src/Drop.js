@@ -20,7 +20,7 @@ export default function Drop({ onLoaded }) {
       // cursor: "pointer",
       // background: "red",
       height: "550px",
-      width: "800px",
+      width: "80%",
       borderRadius: "30px",
       border: "1.5px dashed #B3B3B3",
       marginTop: "80px",
@@ -28,6 +28,8 @@ export default function Drop({ onLoaded }) {
       justifyContent: "center",
       flexDirection: "column",
       alignItems: "center",
+      marginLeft: "auto",
+      marginRight: "auto",
     },
   };
 
